@@ -3,9 +3,13 @@
 Built with caffeine, teamwork, and a little DevOps magic. 💅
 
 Team Girly Pops 
+
 Jon Jönsson 🗣️
+
 Adam Konopa ☠️
+
 Wilma Kylvåg 🌸
+
 
 # First Pipeline Challenge
 
