@@ -11,14 +11,14 @@ Adam Konopa ☠️
 Wilma Kylvåg 🌸
 
 
-# First Pipeline Challenge
+## First Pipeline Challenge
 
 ![CI/CD Pipeline](https://github.com/Oshansheru/the-pipe/workflows/CI%2FCD%20Pipeline/badge.svg)
 
 Live deployment: https://the-pipe.onrender.com
 
 
-# About
+## About
 
 This project was created as part of the First Pipeline Challenge where the goal was to build a complete CI/CD pipeline using GitHub Actions.
 
@@ -26,7 +26,7 @@ Instead of manually testing, building, and deploying our application, we automat
 
 Every push to the repository now triggers a workflow that installs dependencies, runs automated tests, builds a Docker container, scans for security vulnerabilities, and deploys the app automatically
 
-# Architecture
+## Architecture
 
 Developer Push 
 
@@ -51,7 +51,7 @@ Automatic Deployment
 Live Application
 
 
-# CI/CD Pipeline Flow
+## CI/CD Pipeline Flow
 
 1. Code pushed to main branch
 2. GitHub Actions runner starts automatically
@@ -63,7 +63,7 @@ Live Application
 8. Render auto-deploys updated version
 
 
-# Docker
+## Docker
 
 We use Docker to ensure the application runs consistently across environments.
 
@@ -73,7 +73,7 @@ docker build -t the-pipe .
 docker run -p 3001:3001 the-pipe
 
 
-# Security Scanning 
+## Security Scanning 
 
 Trivy scans our container image for known vulnerabilities.
 
@@ -84,7 +84,7 @@ Vulnerabilities may still appear — this is normal.
 The goal is to monitor and understand potential risks.
 
 
-# Running Locally
+## Running Locally
 
 
 Install dependencies:
