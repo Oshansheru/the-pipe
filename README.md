@@ -107,4 +107,4 @@ npm start
 
 # Team Motto 💖
 
-Push with confidence. Let the pipeline handle the chaos. 
+Certified girly pops: giving mother, serving excellence, crumbs extinct, maximum slay.
