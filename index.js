@@ -10,11 +10,12 @@ app.get('/status', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send(
-    'First Pipeline Challenge - Week 4\n' +
-    'The Pipe is strong, The Pipe is nice'
-  );
+  res.send(`
+First Pipeline Challenge - Week 4
+The Pipe is strong, The Pipe is nice
+  `);
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
