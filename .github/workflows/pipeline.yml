@@ -11,24 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # download repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+    # install node environment
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
+    # install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+    #run tests
       - name: Run tests
         run: npm test
         env:
           PORT: 3001   
 
-      # ---------- Docker ----------
+   # build docker image
       - name: Build Docker image
         run: docker build -t the-pipe .
 
-      # ---------- Trivy scan ----------
+   # trivy scan
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -38,3 +45,7 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+   # deploy 
+      - name: Deployment step
+        run: echo "Deploy step handled by render auto-deploy"
