@@ -37,7 +37,7 @@ jobs:
 
    # trivy scan
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy/trivy
         with:
           image-ref: 'the-pipe'
           format: 'table'
