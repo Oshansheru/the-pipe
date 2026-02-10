@@ -1,5 +1,7 @@
 # ✨ First Pipeline Challenge — Girly Pops Edition ✨
 
+The Pipe is good, The Pipe is nice.
+
 Built with caffeine, teamwork, and a little DevOps magic. 💅
 
 Team Girly Pops 
