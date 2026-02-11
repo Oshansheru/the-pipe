@@ -42,7 +42,7 @@ jobs:
    # test docker images     
       - name: Test Docker image runs
         run: |
-          docker run -d --name test-container dockerfile:${{ github.sha }}
+          docker run -d --name test-container my-app:${{ github.sha }}
           sleep 5
           docker ps
           docker logs test-container
@@ -51,7 +51,7 @@ jobs:
     # run health check
       - name: Health check
         run: |
-         docker run -d -p 3001:3001 --name app dockerfile:${{ github.sha }}
+         docker run -d -p 3001:3001 --name app my-app:${{ github.sha }}
          sleep 10
          curl -f http://localhost:3001/health || exit 0   
 
