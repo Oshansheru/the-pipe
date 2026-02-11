@@ -59,7 +59,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'the-pipe'
+          image-ref: 'the-pipe:${{ github.sha }}'
           format: 'table'
           exit-code: '0'
           ignore-unfixed: true
