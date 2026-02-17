@@ -23,6 +23,7 @@ jobs:
 
     # install dependencies
       - name: Install dependencies
+        run: cd backend
         run: npm install
       
     #run tests

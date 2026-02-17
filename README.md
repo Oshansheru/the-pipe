@@ -12,7 +12,7 @@ Adam Konopa ☠️
 
 Wilma Kylvåg 🌸
 
-![Pipeline demo](.github/workflows/seal-spinning-around.gif)
+![Pipeline demo](assets/seal-spinning-around.gif)
 
 ## First Pipeline Challenge
 
