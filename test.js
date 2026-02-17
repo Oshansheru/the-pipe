@@ -3,7 +3,7 @@ const http = require('http');
 function test() {
   const options = {
     hostname: 'localhost',
-    port: 3000,
+    port: 3001,
     path: '/status',
     method: 'GET'
   };
@@ -40,7 +40,7 @@ function test() {
 
 // Start server, run test, then exit
 const app = require('./index.js');
-const server = app.listen(3000, () => {
+const server = app.listen(3001, () => {
   setTimeout(() => {
     test();
     setTimeout(() => server.close(), 1000);
