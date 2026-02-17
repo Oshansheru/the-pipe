@@ -29,7 +29,9 @@ jobs:
       
     #run tests
       - name: Run tests
-        run: npm test
+        run: |
+            cd backend
+            npm test
         env:
           PORT: 3001   
 
