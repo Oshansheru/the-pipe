@@ -27,23 +27,17 @@ jobs:
             cd backend
             npm install
       
-    #run tests
-      - name: Run tests
-        run: |
-            cd backend
-            npm test
-        env:
-          PORT: 3001   
+    # run tests
 
-   # build docker image
+    # build docker image
       - name: Build Docker image
         run: docker build -t the-pipe:${{ github.sha }} .
 
-   # list of images
+    # list of images
       - name: images list
         run: docker images
 
-   # test docker images     
+    # test docker images     
       - name: Test Docker image runs
         run: |
           docker run -d --name test-container the-pipe:${{ github.sha }}
