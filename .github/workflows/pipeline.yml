@@ -23,28 +23,15 @@ jobs:
 
     # install dependencies
       - name: Install dependencies
-        run: |
-            cd backend
-            npm install
+        run: npm install
+        working-directory: ./backend
       
-    # run tests
+    # add tests
 
     # build docker image
       - name: Build Docker image
         run: docker build -t the-pipe:${{ github.sha }} .
-
-    # list of images
-      - name: images list
-        run: docker images
-
-    # test docker images     
-      - name: Test Docker image runs
-        run: |
-          docker run -d --name test-container the-pipe:${{ github.sha }}
-          sleep 5
-          docker ps
-          docker logs test-container
-          docker stop test-container
+        working-directory: ./backend
 
     # run health check
       - name: Health check
