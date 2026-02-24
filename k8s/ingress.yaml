@@ -1,0 +1,26 @@
+# Ingress - Routes external traffic to services
+# Exposes your app to the internet at http://NAMESPACE.chas.retro87.se
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: team-dashboard
+  namespace: girly-pops
+  labels:
+    app: team-dashboard
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  # Your team's URL
+  - host: girly-pops.chas.retro87.se
+    http:
+      paths:
+      # Frontend - serves the web UI
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80

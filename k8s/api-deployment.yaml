@@ -1,36 +1,41 @@
-# Frontend - Web UI
-# Static HTML/JS that calls the API
+# API - Backend REST API
+# Connects to Redis and serves team data
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: api
   namespace: girly-pops
   labels:
-    app: frontend
-    tier: frontend
+    app: api
+    tier: backend
 spec:
-  replicas: 2  # Run 2 instances
+  replicas: 2  # Run 2 instances for high availability
   selector:
     matchLabels:
-      app: frontend
+      app: api
   template:
     metadata:
       labels:
-        app: frontend
-        tier: frontend
+        app: api
+        tier: backend
     spec:
       # Pull from Google Container Registry
       imagePullSecrets:
       - name: gcr-secret
 
       containers:
-      - name: frontend
-        image: gcr.io/chas-devsecops-2026/team-dashboard-frontend:v1
+      - name: api
+        image: gcr.io/chas-devsecops-2026/team-dashboard-api:v1
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 3000
           name: http
+
+        # Load configuration from ConfigMap
+        envFrom:
+        - configMapRef:
+            name: api-config
 
         resources:
           requests:
@@ -43,33 +48,33 @@ spec:
         # Health checks
         livenessProbe:
           httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
           periodSeconds: 10
 
         readinessProbe:
           httpGet:
-            path: /
-            port: 80
+            path: /health
+            port: 3000
           initialDelaySeconds: 5
           periodSeconds: 5
 
 ---
-# Frontend Service - Exposes frontend to ingress
+# API Service - Makes API accessible to other pods
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: api-service
   namespace: girly-pops
   labels:
-    app: frontend
+    app: api
 spec:
-  type: ClusterIP
+  type: ClusterIP  # Internal only
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 3000
+    targetPort: 3000
     protocol: TCP
     name: http
   selector:
-    app: frontend
+    app: api

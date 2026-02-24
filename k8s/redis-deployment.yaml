@@ -1,0 +1,67 @@
+# Redis - In-Memory Cache/Database
+# Used by the API to store visit counts and session data
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: girly-pops
+  labels:
+    app: redis
+    tier: database
+spec:
+  replicas: 1  # Redis typically runs as single instance
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        tier: database
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+          name: redis
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        # Health checks
+        livenessProbe:
+          tcpSocket:
+            port: 6379
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+---
+# Redis Service - Makes Redis accessible to other pods
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: girly-pops
+  labels:
+    app: redis
+spec:
+  type: ClusterIP  # Internal only, not exposed to internet
+  ports:
+  - port: 6379
+    targetPort: 6379
+    protocol: TCP
+    name: redis
+  selector:
+    app: redis

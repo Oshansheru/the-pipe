@@ -1,0 +1,21 @@
+# ConfigMap - Configuration for the API
+# Environment variables that the API container will use
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  namespace: girly-pops
+  labels:
+    app: api
+data:
+  # Team information
+  TEAM_NAME: "girly-pops"
+  NAMESPACE: "girly-pops"
+
+  # Redis connection
+  REDIS_HOST: "redis-service"  # Kubernetes service name (DNS)
+  REDIS_PORT: "6379"
+
+  # API configuration
+  PORT: "3000"

@@ -1,0 +1,15 @@
+# Monitor Configuration
+# ConfigMap with team name and API endpoint
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: monitor-config
+  # TODO: Change namespace to your team name
+  namespace: girly-pops
+  labels:
+    app: team-monitor
+data:
+  TEAM_NAME: "girly-pops"
+  API_ENDPOINT: "https://chas-academy-devops-2026-c5q0fqkbp-erkan-djafers-projects.vercel.app/api/team-status"
+  CHECK_INTERVAL: "30000"  # Check every 30 seconds

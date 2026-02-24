@@ -1,0 +1,91 @@
+# Certificate - Request SSL/TLS certificate from Let's Encrypt
+# This makes your app accessible via HTTPS instead of HTTP
+#
+# ⚠️ PREREQUISITES:
+# - cert-manager must be installed in the cluster (check with instructor!)
+# - Basic HTTP deployment must be working first
+# - DNS must point to your ingress IP
+#
+# ⚠️ DOMAIN NOTE:
+# The domain (chas.retro87.se) is hosted on DigitalOcean.
+# cert-manager uses HTTP-01 challenge which works regardless of DNS provider.
+# As long as *.chas.retro87.se points to the ingress IP, certificates will work!
+#
+# HOW TO CHECK IF cert-manager IS INSTALLED:
+#   kubectl get pods -n cert-manager
+#   kubectl get clusterissuer letsencrypt-prod
+#
+# If cert-manager is installed, it will automatically:
+# 1. Request a certificate from Let's Encrypt
+# 2. Complete the ACME HTTP-01 challenge
+# 3. Install the certificate in your Ingress
+# 4. Auto-renew before expiration (90 days)
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: team-dashboard-tls
+  namespace: girly-pops
+  labels:
+    app: team-dashboard
+spec:
+  # Certificate details
+  secretName: team-dashboard-tls  # Where cert will be stored
+
+  # Request from Let's Encrypt
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+
+  # Domain to secure
+  dnsNames:
+  - girly-pops.chas.retro87.se
+
+  # Use HTTP-01 challenge (cert-manager will create temporary ingress)
+  usages:
+  - digital signature
+  - key encipherment
+
+---
+# Updated Ingress with TLS enabled
+# This replaces 9-ingress.yaml when you enable SSL
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: team-dashboard
+  namespace: girly-pops
+  labels:
+    app: team-dashboard
+  annotations:
+    # Use nginx ingress controller
+    kubernetes.io/ingress.class: "nginx"
+
+    # cert-manager will use this to know which certificate to use
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+    # Redirect HTTP to HTTPS automatically
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    # Modern TLS configuration
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
+spec:
+  # TLS configuration
+  tls:
+  - hosts:
+    - girly-pops.chas.retro87.se
+    secretName: team-dashboard-tls  # References the certificate secret
+
+  rules:
+  # Your team's URL (now with HTTPS!)
+  - host: girly-pops.chas.retro87.se
+    http:
+      paths:
+      # Frontend - serves the web UI
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
