@@ -3,4 +3,7 @@
 node_modules/
 **/node_modules/
 
-k8s/monitorsecret.yaml
+
+# monitor secrets
+
+k8s/monitor-secret.yaml
