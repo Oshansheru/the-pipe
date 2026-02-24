@@ -1,0 +1,64 @@
+# Team Monitor Deployment
+# This monitors your namespace and reports status to Team Flags
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: team-monitor
+  # TODO: Change namespace to your team name
+  namespace: girly-pops
+  labels:
+    app: team-monitor
+spec:
+  replicas: 1  # Only need one monitor
+  selector:
+    matchLabels:
+      app: team-monitor
+  template:
+    metadata:
+      labels:
+        app: team-monitor
+    spec:
+      # Use the service account created by Terraform
+      serviceAccountName: monitor-sa
+
+      # Pull from Google Container Registry
+      imagePullSecrets:
+      - name: gcr-secret
+
+      containers:
+      - name: monitor
+        # Pre-built monitor image (provided by instructor)
+        image: gcr.io/chas-devsecops-2026/team-monitor:v1
+        imagePullPolicy: Always
+
+        # Load configuration from ConfigMap
+        envFrom:
+        - configMapRef:
+            name: monitor-config
+
+        # Load API key from Secret
+        env:
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: monitor-secret
+              key: API_KEY
+
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
+
+        # Simple health check
+        livenessProbe:
+          exec:
+            command:
+            - node
+            - -e
+            - "console.log('healthy')"
+          initialDelaySeconds: 10
+          periodSeconds: 30
