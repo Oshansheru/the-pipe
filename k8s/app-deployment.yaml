@@ -1,2 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
 metadata:
+  name: the-pipe
   namespace: girly-pops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: the-pipe
+  template:
+    metadata:
+      labels:
+        app: the-pipe
+    spec:
+      containers:
+        - name: the-pipe
+          image: nginx
+          ports:
+            - containerPort: 80
