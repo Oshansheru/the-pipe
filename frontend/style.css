@@ -1,0 +1,93 @@
+body {
+    background: linear-gradient(135deg, #fcadd8, #c084fc);
+    font-family: 'Poppins', sans-serif;
+    color: #3a003a;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    color: #ff4da6;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+h2 {
+    color: #ff66b2;
+    margin-top: 30px;
+}
+
+h3 {
+    color: #cc3399;
+}
+
+p {
+    max-width: 600px;
+    margin: 10px auto;
+    line-height: 1.6;
+}
+
+img {
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin: 15px 0;
+}
+
+a {
+    color: #ff1493;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+section {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 20px;
+    width: 80%;
+    backdrop-filter: blur(10px);
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ff66b2, transparent);
+    margin: 30px 0;
+}
+
+.team {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.member {
+    min-width: 160px;
+}
+
+button {
+    background: linear-gradient(135deg, #ff9bd2, #c084fc);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
