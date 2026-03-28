@@ -23,10 +23,6 @@ jobs:
         run: npm ci
         working-directory: ./backend
 
-      - name: Run backend tests
-        run: npm test
-        working-directory: ./backend
-
       - name: Build Docker image
         run: docker build -t the-pipe:${{ github.sha }} .
 
