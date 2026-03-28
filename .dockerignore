@@ -1,0 +1,39 @@
+# Git metadata
+.git
+.gitignore
+
+# Node modules
+node_modules
+**/node_modules
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Environment / secrets
+.env
+.env.*
+k8s/monitor-secret.yaml
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Terraform
+.terraform
+*.tfstate
+*.tfstate.*
+terraform/
+
+# Editor / OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Docs and misc not needed in runtime image
+README.md
+k8s/
