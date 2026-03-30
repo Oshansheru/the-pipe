@@ -59,12 +59,4 @@ tmp/
 # Build artifacts
 # =========================
 dist/
-build/# node modules
-
-node_modules/
-**/node_modules/
-
-
-# monitor secrets
-
-k8s/monitor-secret.yaml
+build/

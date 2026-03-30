@@ -18,7 +18,7 @@ function rotateMotto() {
     mottoElement.textContent = mottos[mottoIndex];
 }
 
-setInterval(rotateMotto, 3000);
+setInterval(rotateMotto, 5000);
 
 //Live time section
 function updateTime() {

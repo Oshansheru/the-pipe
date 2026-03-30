@@ -10,13 +10,19 @@ metadata:
     app: team-dashboard
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
 spec:
+  tls:
+  - hosts:
+    - girly-pops.chas.retro87.se
+    secretName: team-dashboard-tls
+
   rules:
-  # Your team's URL
   - host: girly-pops.chas.retro87.se
     http:
       paths:
-      # Frontend - serves the web UI
       - path: /
         pathType: Prefix
         backend:

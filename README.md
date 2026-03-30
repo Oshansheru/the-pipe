@@ -23,47 +23,52 @@ Live deployment: https://the-pipe.onrender.com
 
 ## About
 
-This project was created as part of the First Pipeline Challenge where the goal was to build a complete CI/CD pipeline using GitHub Actions.
+This project was created as part of our DevSecOps course, where the goal was to build a complete end-to-end pipeline from code to production with security, automation, and monitoring in mind.
 
-Instead of manually testing, building, and deploying our application, we automated the entire process.
+We started with a simple application and gradually evolved it into a fully containerized system with CI/CD, Kubernetes deployment, and security practices.
 
-Every push to the repository now triggers a workflow that installs dependencies, runs automated tests, builds a Docker container, scans for security vulnerabilities, and deploys the app automatically
+## Architecture Overview
 
-## Architecture
+### During the course (Kubernetes)
 
-Developer Push 
+Our application was deployed in a Kubernetes cluster using a dedicated namespace (girly-pops).
 
-↓ 
+The architecture included:
 
-GitHub Repository 
+Frontend - static web UI
+API - backend service
+Redis - internal data store
+Monitor - reports system status
+Ingress - routes external traffic
+TLS (cert-manager) - enables HTTPS
+RBAC & Service Accounts - controlled access
 
-↓ 
+We used Kubernetes to run multiple replicas for availability, manage container networking and services, separate environments using namespaces and securely handle configuration and secrets.
 
-GitHub Actions Workflow 
 
-↓ 
+### Current deployment (Render)
 
-Install → Test → Docker Build → Trivy Security Scan 
+As the course environment was decommissioned, our Kubernetes cluster and namespace were removed.
 
-↓ 
+The application is now deployed on Render, which abstracts away infrastructure management.
 
-Automatic Deployment 
+Instead of managing Kubernetes directly, Render handles deployment, scaling, networking, and HTTPS.
 
-↓ 
-
-Live Application
+Our CI/CD pipeline still builds and deploys the application automatically to Render.
 
 
 ## CI/CD Pipeline Flow
 
+Every push to the main branch triggers our GitHub Actions workflow:
+
 1. Code pushed to main branch
-2. GitHub Actions runner starts automatically
-3. Node.js environment is created
-4.  Dependencies installed with npm
-5. Tests run against /status endpoint
-6. Docker image built from Dockerfile
-7. Trivy scans container for vulnerabilities
-8. Render auto-deploys updated version
+2. GitHub Actions pipeline starts automatically
+3. Node.js environment is set up
+4. Dependencies are installed
+5. Docker image is built from Dockerfile
+6. Container is tested with a health check
+7. Trivy scans for vulnerabilities
+8. Render automatically deploys the new version
 
 
 ## Docker
@@ -76,35 +81,35 @@ docker build -t the-pipe .
 docker run -p 3001:3001 the-pipe
 
 
-## Security Scanning 
+## Security
 
-Trivy scans our container image for known vulnerabilities.
+We implemented several DevSecOps security practices:
 
-Important:
-
-Vulnerabilities may still appear — this is normal.
-
-The goal is to monitor and understand potential risks.
+Trivy scanning for container vulnerabilities
+Kubernetes Secrets for sensitive values
+ConfigMaps for non-sensitive configuration
+RBAC (Role-Based Access Control) for least-privilege access
+HTTPS with TLS using cert-manager
+.gitignore & .dockerignore to prevent committing sensitive data
 
 
 ## Running Locally
 
-
-Install dependencies:
-
+cd backend
 npm install
-
-
-Run tests:
-
-npm test
-
-
-Start server:
-
 npm start
 
+## DevSecOps Mindset
 
-# Team Motto 💖
+This project demonstrates:
 
-Certified girly pops: giving mother, serving excellence, crumbs extinct, maximum slay.
+automation over manual processes
+security integrated into the pipeline
+containerized applications
+infrastructure awareness (Kubernetes)
+and the ability to move between platforms (Kubernetes → Render)
+
+
+# 💖
+
+But now that the course is over, girly pops are signing off, slaying the day and sashaying away. Bye Barbie!!!!!!!
