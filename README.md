@@ -29,24 +29,29 @@ We started with a simple application and gradually evolved it into a fully conta
 
 ## Architecture Overview
 
-### During the course (Kubernetes)
+### During the course - Kubernetes (Legacy Deployment)
 
 Our application was deployed in a Kubernetes cluster using a dedicated namespace (girly-pops).
 
 The architecture included:
 
-Frontend - static web UI
-API - backend service
-Redis - internal data store
-Monitor - reports system status
-Ingress - routes external traffic
-TLS (cert-manager) - enables HTTPS
-RBAC & Service Accounts - controlled access
+* Frontend - static web UI
+* API - backend service
+* Redis - internal data store
+* Monitor - reports system status
+* Ingress - routes external traffic
+* TLS (cert-manager) - enables HTTPS
+* RBAC & Service Accounts - controlled access
+
+To apply the configuration, we used:
+kubectl apply -f k8s/prod/
 
 We used Kubernetes to run multiple replicas for availability, manage container networking and services, separate environments using namespaces and securely handle configuration and secrets.
 
+NOTE: This setup is no longer active, as the cluster environment has been decommissioned. The application is now deployed using Render instead.
 
-### Current deployment (Render)
+
+### Current deployment - Render
 
 As the course environment was decommissioned, our Kubernetes cluster and namespace were removed.
 
@@ -85,12 +90,12 @@ docker run -p 3001:3001 the-pipe
 
 We implemented several DevSecOps security practices:
 
-Trivy scanning for container vulnerabilities
-Kubernetes Secrets for sensitive values
-ConfigMaps for non-sensitive configuration
-RBAC (Role-Based Access Control) for least-privilege access
-HTTPS with TLS using cert-manager
-.gitignore & .dockerignore to prevent committing sensitive data
+* Trivy scanning for container vulnerabilities
+* Kubernetes Secrets for sensitive values
+* ConfigMaps for non-sensitive configuration
+* RBAC (Role-Based Access Control) for least-privilege access
+* HTTPS with TLS using cert-manager
+* .gitignore & .dockerignore to prevent committing sensitive data
 
 
 ## Running Locally
@@ -102,14 +107,13 @@ npm start
 ## DevSecOps Mindset
 
 This project demonstrates:
+* automation over manual processes
+* security integrated into the pipeline
+* containerized applications
+* infrastructure awareness (Kubernetes)
+* the ability to move between platforms (Kubernetes → Render)
 
-automation over manual processes
-security integrated into the pipeline
-containerized applications
-infrastructure awareness (Kubernetes)
-and the ability to move between platforms (Kubernetes → Render)
 
-
-# 💖
+## 💖💖💖
 
 But now that the course is over, girly pops are signing off, slaying the day and sashaying away. Bye Barbie!!!!!!!
